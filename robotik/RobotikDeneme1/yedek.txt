@@ -1,0 +1,93 @@
+#include <QTRSensors.h>  // Cizgi sensorlerini kullanmak için gerekli kütüphane
+
+// ==== SENSOR VE MOTOR TANIMLAMALARI ====
+QTRSensors cizgiSensorleri;  // Sensorleri kontrol eden nesne
+#define SENSOR_SAYISI 3  // Kullanilan toplam sensor sayisi
+int sensorPinleri[SENSOR_SAYISI] = {A0, A1, A2};  // Analog giris pinleri
+int sensorVerileri[SENSOR_SAYISI];  // Sensorlerden okunan veriler
+
+// Motor surucu için kullanılan pinler (L298N)
+#define solMotorPWM 9      // Sol motor hiz kontrolü (PWM - analogWrite ile kullanilir)
+#define sagMotorPWM 10     // Sag motor hiz kontrolü (PWM)
+#define solMotorYon 7      // Sol motor yon kontrolü (digitalWrite ile ileri-geri ayarlanir)
+#define sagMotorYon 8      // Sag motor yon kontrolü
+
+// ==== PD KONTROL SABITLERI ====
+float oransalKatsayi = 20;  // Kp (Oransal katsayi) - Robotun cizgiye verdigi ani tepkiyi kontrol eder
+float turevKatsayi = 8;     // Kd (Turev katsayi) - Robotun donuslerde stabil kalmasını sağlar
+int temelHiz = 180;         // Robotun temel motor hizi (Daha hizli hareket için artırildi)
+int oncekiHata = 0;         // Onceki hata değeri (Turev hesaplamalarinda kullanilir)
+
+// ========================
+// **Kurulum (Setup)**
+// ========================
+void setup() {
+    Serial.begin(9600);  // Serial haberleşmeyi baslat (Sensor verilerini görmek için)
+
+    // Sensorleri başlat ve yapılandır
+    cizgiSensorleri.setTypeAnalog();  // Sensorlerin analog veri okumasini ayarla
+    cizgiSensorleri.setSensorPins(sensorPinleri, SENSOR_SAYISI);  // Sensor pinlerini belirle
+    cizgiSensorleri.setEmitterPin(LED_BUILTIN);  // Sensorlerin LED isigini kontrol et
+
+    // Motor pinlerini çıkış olarak tanımla
+    pinMode(solMotorPWM, OUTPUT);
+    pinMode(sagMotorPWM, OUTPUT);
+    pinMode(solMotorYon, OUTPUT);
+    pinMode(sagMotorYon, OUTPUT);
+
+    Serial.println("Robot baslatildi! Hizlandirilmis versiyon calisiyor.");
+}
+
+// ========================
+// **Sensor Okuma Fonksiyonu**
+// ========================
+int sensorleriOku() {
+    cizgiSensorleri.read(sensorVerileri);  // Sensorlerden verileri oku
+
+    // Cizginin konumunu belirlemek için hata hesapla
+    int hata = (sensorVerileri[0] * -1) + (sensorVerileri[2] * 1);
+
+    // Sensor verilerini ekrana yazdir (Hata ayiklamak için kullanabilirsin)
+    Serial.print("Sensorler -> Sol: "); Serial.print(sensorVerileri[0]);
+    Serial.print(" Orta: "); Serial.print(sensorVerileri[1]);
+    Serial.print(" Sag: "); Serial.println(sensorVerileri[2]);
+
+    return hata;  // Hata degerini dondur (PD kontrol için)
+}
+
+// ========================
+// **PD Kontrollü Motor Yönetimi (L298N)**
+// ========================
+void motorlariKontrolEt(int hata) {
+    int turevHata = hata - oncekiHata;  // Hata degisim hizini hesapla (Turev terimi)
+    int duzeltme = oransalKatsayi * hata + turevKatsayi * turevHata;  // PD formülü ile duzeltme hesapla
+
+    // Motor hizlarini duzeltme degeri ile ayarla
+    int solHiz = temelHiz - duzeltme;
+    int sagHiz = temelHiz + duzeltme;
+
+    // Hız kontrolü (PWM sinyali ile)
+    analogWrite(solMotorPWM, constrain(solHiz, 0, 255));  // Hizi 0-255 arasinda sinirla
+    analogWrite(sagMotorPWM, constrain(sagHiz, 0, 255));
+
+    // Motor yonunu ayarla (Hangi tarafin daha hizli olduğu kontrol ediliyor)
+    if (solHiz > sagHiz) {
+        digitalWrite(solMotorYon, HIGH);  // Sol motor ileri
+        digitalWrite(sagMotorYon, LOW);   // Sag motor geri
+    } else {
+        digitalWrite(solMotorYon, LOW);   // Sol motor geri
+        digitalWrite(sagMotorYon, HIGH);  // Sag motor ileri
+    }
+
+    oncekiHata = hata;  // Onceki hata degerini guncelle (Sonraki dongude kullanılacak)
+}
+
+// ========================
+// **Ana Dongu (Loop)**
+// ========================
+void loop() {
+    int hata = sensorleriOku();  // Sensorlerden hata degerini al
+    motorlariKontrolEt(hata);    // Motorlari PD kontrolüne göre yönet
+    
+    delay(30);  // Sensor verisini daha sik guncelle (Daha hizli tepki için)
+}
