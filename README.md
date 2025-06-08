@@ -2,7 +2,7 @@
 <!--Italic-->
 # Robotik Kodlama 2. Dönem
 <img align='right' src='https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/blob/main/gif1.gif' width='300'>
-<img align='right' src='https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/blob/main/gif4.gif' width='250'>
+<img align='right' src='https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/blob/main/gif4.gif' width='200'>
 
 
 - [Potansiyometre Uygulaması](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/04.02.2025)
