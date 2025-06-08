@@ -16,3 +16,5 @@
 - [LCD Ekrana İsim Ve Soyisim Yazma Uygulaması]( https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/15.04.2025)
 - [LCD Ekran İle Boy Ölçme Uygulaması](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/22.04.2025)
 - [Çizgi İzleyen Robot Kodları](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/robotik)
+<img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="1010">
+<br><br>
