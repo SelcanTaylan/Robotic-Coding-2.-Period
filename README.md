@@ -1,7 +1,7 @@
 <!--Height-->
 <!--Italic-->
 # Robotik Kodlama 2. Dönem
-<img align='right' src='https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/blob/main/gif.jpeg' width='400'>
+<img align='right' src='https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/blob/main/gif1.gif' width='300'>
 
 
 - [Potansiyometre Uygulaması](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/04.02.2025)
