@@ -1,6 +1,9 @@
 <!--Height-->
 <!--Italic-->
 # Robotik Kodlama 2. Dönem
+<img align='right' src='https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/blob/main/gif.jpeg' width='400'>
+
+
 - [Potansiyometre Uygulaması](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/04.02.2025)
 - [LDR (Işık Etkili Direnç) Uygulaması](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/11.02.2025)
 - [3 Led İle LDR Uygulaması](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/18.02.2025)
