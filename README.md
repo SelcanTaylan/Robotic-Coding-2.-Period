@@ -15,6 +15,6 @@
 - [Application to Write Date of Birth on 7 Segment Clock Screen](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/08.04.2025/DisplayNum)
 - [Application For Writing Names And Surnames On The LCD Screen]( https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/15.04.2025)
 - [Height Measurement Application with LCD Screen](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/22.04.2025)
-- [Bir Çizgiyi Takip Eden Robot Kodları](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/robotik)
+- [Robot Codes That Follow A Line](https://github.com/SelcanTaylan/Robotik-Kodlama-Donem-2/tree/main/robotik)
 <img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="1010">
 <br><br>
